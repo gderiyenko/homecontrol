@@ -6,14 +6,12 @@ window.Vue = require("vue");
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+
 Vue.use(Vuetify);
 
-new Vue({
-    vuetify,
-  }).$mount('#app')
 const vuetify = new Vuetify({
     icons: {
-        iconfont: "mdi" // default - only for display purposes
+        iconfont: "mdi"
     },
     theme: {
         themes: {
@@ -23,3 +21,12 @@ const vuetify = new Vuetify({
         }
     }
 });
+
+Vue.component(
+    "add-object",
+    require("./pages/home.vue").default
+);
+
+new Vue({
+    vuetify,
+  }).$mount('#main')
