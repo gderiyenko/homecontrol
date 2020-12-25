@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ObjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +23,18 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('home')->group(function () {
+    Route::get('/', function () { return view('welcome'); });
+    Route::get('/objects', [HomeController::class, 'objects']);
+    Route::get('/commands', [HomeController::class, 'commands']);
+    Route::get('/teams', [HomeController::class, 'teams']);
+});
+
+Route::get('objects', [ObjectController::class, 'all']);
+Route::prefix('object')->group(function () {
+    Route::get('/', [ObjectController::class, 'show']);
+    Route::post('/', [ObjectController::class, 'store']);
+    Route::put('/', [ObjectController::class, 'edit']);
+    Route::delete('/', [ObjectController::class, 'destroy']);
+});

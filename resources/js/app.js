@@ -24,7 +24,12 @@ const vuetify = new Vuetify({
 
 Vue.component(
     "add-object",
-    require("./pages/home.vue").default
+    require("./components/AddObject.vue").default
+);
+
+Vue.component(
+    "objects-list",
+    require("./components/ObjectsList.vue").default
 );
 
 new Vue({

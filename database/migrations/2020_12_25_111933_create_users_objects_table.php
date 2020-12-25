@@ -17,8 +17,7 @@ class CreateUsersObjectsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('object_id');
-            $table->boolean('read');
-            $table->boolean('write');
+            $table->boolean('owner');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

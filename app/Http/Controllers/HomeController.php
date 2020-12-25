@@ -17,12 +17,32 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show objects dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function objects()
     {
-        return view('home');
+        return view('objects');
+    }
+
+    /**
+     * Show commands dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function commands()
+    {
+        return view('commands');
+    }
+
+    /**
+     * Show teams dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function teams()
+    {
+        return view('teams');
     }
 }
