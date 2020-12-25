@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\SmartObjectsList;
-use App\Models\SmartObject;
-use App\Models\SmartObjectsPermissions;
 use Illuminate\Http\Request;
 
-class ObjectController extends Controller
+class TeamController extends Controller
 {
     /**
-     * Show all user's smart objects.
+     * Show all user's teams.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function all(Request $request)
     {
-        return new SmartObjectsList(SmartObjectsPermissions::byUser($request->user()->id));
+        //
     }
 
     /**
@@ -28,23 +25,16 @@ class ObjectController extends Controller
      */
     public function store(Request $request)
     {
-        $newObject = SmartObject::create([
-            'name' => $request->name,
-            'ip' => $request->ip,
-            'port' => $request->port,
-            'username' => $request->username,
-            'keypass' => $request->keypass,
-        ]);
-        return $newObject;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Object $object)
+    public function show(Team $team)
     {
         //
     }
@@ -53,10 +43,10 @@ class ObjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Object $object)
+    public function update(Request $request, Team $team)
     {
         //
     }
@@ -64,10 +54,10 @@ class ObjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Object $object)
+    public function destroy(Team $team)
     {
         //
     }
