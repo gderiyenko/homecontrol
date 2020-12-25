@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObjectsTable extends Migration
+class CreateCommandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('objects', function (Blueprint $table) {
+        Schema::create('commands', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('ip', 50);
-            $table->unsignedSmallInteger('port');
-            $table->string('username', 50);
-            $table->string('keypass');
+            $table->string('name', 100);
+            $table->string('content', 200);
+            $table->bigInteger('object_id');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -32,6 +30,6 @@ class CreateObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objects');
+        Schema::dropIfExists('commands');
     }
 }
