@@ -41,10 +41,10 @@ class ObjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\SmartObject  $object
      * @return \Illuminate\Http\Response
      */
-    public function show(Object $object)
+    public function show(SmartObject $object)
     {
         //
     }
@@ -53,10 +53,10 @@ class ObjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\SmartObject  $object
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Object $object)
+    public function update(Request $request, SmartObject $object)
     {
         //
     }
@@ -64,10 +64,10 @@ class ObjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Object  $object
+     * @param  \App\Models\SmartObject  $object
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Object $object)
+    public function destroy(SmartObject $object)
     {
         //
     }

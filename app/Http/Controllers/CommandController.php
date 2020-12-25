@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Command;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
