@@ -28,14 +28,31 @@ class ObjectController extends Controller
      */
     public function store(Request $request)
     {
-        $newObject = SmartObject::create([
-            'name' => $request->name,
-            'ip' => $request->ip,
-            'port' => $request->port,
-            'username' => $request->username,
-            'keypass' => $request->keypass,
-        ]);
-        return $newObject;
+        try {
+            $newObject = SmartObject::create([
+                'name' => $request->name,
+                'ip' => $request->ip,
+                'port' => $request->port,
+                'username' => $request->username,
+                'keypass' => $request->keypass,
+            ]);
+            return [
+                'success' => true,
+                'object' => [
+                    'name' => $newObject->name,
+                    'details' => $newObject->username.'@'.$newObject->ip.':'.$newObject->port.' -p'.$newObject->keypass,
+                    'ip' => $newObject->ip,
+                    'port' => $newObject->port,
+                    'username' => $newObject->username,
+                    'keypass' => $newObject->keypass,
+                ]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+            ];
+        }
+        
     }
 
     /**
