@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ObjectController;
 use Illuminate\Support\Facades\Route;
@@ -38,18 +39,18 @@ Route::prefix('object')->group(function () {
     Route::delete('/', [ObjectController::class, 'destroy']);
 });
 
-Route::get('commands', [ObjectController::class, 'all']);
+Route::get('commands', [CommandController::class, 'all']);
 Route::prefix('command')->group(function () {
-    Route::get('/', [ObjectController::class, 'show']);
-    Route::post('/', [ObjectController::class, 'store']);
-    Route::put('/', [ObjectController::class, 'update']);
-    Route::delete('/', [ObjectController::class, 'destroy']);
+    Route::get('/', [CommandController::class, 'show']);
+    Route::post('/', [CommandController::class, 'store']);
+    Route::put('/', [CommandController::class, 'update']);
+    Route::delete('/', [CommandController::class, 'destroy']);
 });
 
-Route::get('teams', [ObjectController::class, 'all']);
+Route::get('teams', [TeamController::class, 'all']);
 Route::prefix('team')->group(function () {
-    Route::get('/', [ObjectController::class, 'show']);
-    Route::post('/', [ObjectController::class, 'store']);
-    Route::put('/', [ObjectController::class, 'update']);
-    Route::delete('/', [ObjectController::class, 'destroy']);
+    Route::get('/', [TeamController::class, 'show']);
+    Route::post('/', [TeamController::class, 'store']);
+    Route::put('/', [TeamController::class, 'update']);
+    Route::delete('/', [TeamController::class, 'destroy']);
 });

@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <objects-list></objects-list>
+                    <commands-list></commands-list>
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommandsList;
 use App\Models\Command;
+use App\Models\SmartObjectsPermissions;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
@@ -15,7 +17,7 @@ class CommandController extends Controller
      */
     public function all(Request $request)
     {
-        //
+        return new CommandsList(SmartObjectsPermissions::byUser($request->user()->id));
     }
 
     /**

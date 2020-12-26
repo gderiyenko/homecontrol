@@ -17,6 +17,8 @@ class CreateCommandsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('content', 200);
+            $table->string('description', 500);
+            $table->boolean('input');
             $table->bigInteger('object_id');
             $table->timestamps();
             $table->softDeletes('deleted_at');

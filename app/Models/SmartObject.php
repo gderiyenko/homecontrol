@@ -20,6 +20,10 @@ class SmartObject extends Model
         'deleted_at',
     ];
 
+    protected $with = [
+        'commands',
+    ];
+
     /* Relations */
 
     /**
@@ -28,5 +32,10 @@ class SmartObject extends Model
     public function permissions()
     {
         return $this->hasMany(SmartObjectsPermissions::class);
+    }
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class, 'object_id');
     }
 }

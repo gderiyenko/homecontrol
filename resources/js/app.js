@@ -32,6 +32,16 @@ Vue.component(
     require("./components/ObjectsList.vue").default
 );
 
+Vue.component(
+    "add-command",
+    require("./components/AddCommand.vue").default
+);
+
+Vue.component(
+    "commands-list",
+    require("./components/CommandsList.vue").default
+);
+
 new Vue({
     vuetify,
   }).$mount('#main')

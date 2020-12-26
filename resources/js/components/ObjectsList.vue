@@ -42,7 +42,6 @@ export default {
       this.objects = result;
     },
     getObjects() {
-      let that = this;
       axios
         .get("/objects")
         .then((response) => {
