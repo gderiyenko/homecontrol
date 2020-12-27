@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SmartObjectsPermissions extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = "users_objects";
 
@@ -24,17 +25,30 @@ class SmartObjectsPermissions extends Model
      *
      * @var array
      */
-    protected $with = ['object', 'user'];
+    protected $with = [];
 
     /**
-     * Get objects by user function
+     * Get by user scope function
      *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
      * @param integer $userId
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function byUser(int $userId)
+    public function scopeByUser($q, int $userId)
     {
-        return static::where('user_id', $userId)->get();
+        return $q->where('user_id', $userId);
+    }
+
+    /**
+     * Get by object scope function
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param integer $objectId
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByObject($q, int $objectId)
+    {
+        return $q->where('object_id', $objectId);
     }
 
     /* Relations */

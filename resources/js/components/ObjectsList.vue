@@ -4,35 +4,36 @@
       <div class="card-header">
         <span> Objects </span>
         <div class="float-right">
-          <v-btn color="primary" dark @click="dialog = true"> Add </v-btn>
+          <v-btn color="primary" dark @click="addForm.dialog = true"> Add </v-btn>
         </div>
       </div>
 
       <div class="card-body">
-        <v-simple-table>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Connection</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in objects" :key="item.name">
-                <td>{{ item.name }}</td>
-                <td>{{ item.details }}</td>
-                <td class="text-right">
-                  <v-icon> mdi-dots-vertical</v-icon>
-                </td>
-              </tr>
-            </tbody>
+        <v-data-table
+          :headers="headers"
+          :items="objects"
+          class="elevation-1"
+        >
+          <template v-slot:item.actions="{ item }">
+            <v-icon
+              small
+              class="mr-2"
+              @click="setEditForm(item)"
+            >
+              mdi-pencil
+            </v-icon>
+            <v-icon
+              small
+              @click="setDeleteForm(item)"
+            >
+              mdi-delete
+            </v-icon>
           </template>
-        </v-simple-table>
+        </v-data-table>
       </div>
     </div>
     <!-- Add object modal window -->
-    <v-dialog v-model="dialog" max-width="600">
+    <v-dialog v-model="addForm.dialog" max-width="600">
       <v-card>
         <v-card-title class="headline"> Create object </v-card-title>
 
@@ -42,31 +43,67 @@
         </v-card-subtitle>
 
         <v-card-text>
-          <v-text-field v-model="name" label="Name" required></v-text-field>
-          <v-text-field v-model="ip" label="IP" required></v-text-field>
-          <v-text-field
-            v-model="username"
-            label="Username"
-            required
-          ></v-text-field>
-          <v-text-field v-model="port" label="Port" required></v-text-field>
-          <v-text-field
-            v-model="keypass"
-            label="password"
-            required
-          ></v-text-field>
+          <v-text-field v-model="addForm.name" label="Name" required></v-text-field>
+          <v-text-field v-model="addForm.ip" label="IP" required></v-text-field>
+          <v-text-field v-model="addForm.username" label="Username" required></v-text-field>
+          <v-text-field v-model="addForm.port" label="Port" required></v-text-field>
+          <v-text-field v-model="addForm.keypass" label="Password" required></v-text-field>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text v-on:click="sendForm()">
+          <v-btn color="green darken-1" text v-on:click="sendAddForm()">
             Add
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <!-- -->
+    <!-- Edit object modal window -->
+    <v-dialog v-model="editForm.dialog" max-width="600">
+      <v-card>
+        <v-card-title class="headline"> Edit object </v-card-title>
+
+        <v-card-subtitle>
+          Input here your object's settings for future connections.
+        </v-card-subtitle>
+
+        <v-card-text>
+          <v-text-field v-model="editForm.name" label="Name" required></v-text-field>
+          <v-text-field v-model="editForm.ip" label="IP" required></v-text-field>
+          <v-text-field v-model="editForm.username" label="Username" required ></v-text-field>
+          <v-text-field v-model="editForm.port" label="Port" required></v-text-field>
+          <v-text-field v-model="editForm.keypass" label="Password" required></v-text-field>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text v-on:click="sendEditForm()">
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Edit object modal window -->
+    <v-dialog v-model="deleteDialog" max-width="600">
+      <v-card>
+        <v-card-title class="headline"> Delete object </v-card-title>
+
+        <v-card-subtitle>
+          Are you sure to delete the {{ deleteName }} object?
+        </v-card-subtitle>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text v-on:click="sendDeleteForm()">
+            Remove
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Failed action notification -->
     <v-snackbar v-model="snackbar">
       {{ text }}
 
@@ -86,18 +123,47 @@ export default {
   name: "ObjectsList",
   data() {
     return {
-      // List
+      // List.
       objects: [],
+      headers: [
+        {
+          text: 'Name',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Connection', sortable: false, value: 'details' },
+        { text: '', sortable: false, value: 'actions' },
+      ],
 
-      // Add Form
-      dialog: false,
-      name: "",
-      ip: "",
-      username: "",
-      port: "",
-      keypass: "",
+      // Add form.
+      addForm: {
+        dialog: false,
+        name: "",
+        ip: "",
+        username: "",
+        port: "",
+        keypass: "",
+      },
 
-      // Failed notification
+      // Edit form.
+      editForm: {
+        dialog: false,
+        id: 0,
+        name: "",
+        ip: "",
+        username: "",
+        port: "",
+        keypass: "",
+      },
+      
+      // Delete form
+      deleteDialog: false,
+      deleteName: "",
+      deleteId: "",
+
+
+      // Failed notification.
       snackbar: false,
       text: `Action failed. Try again later.`,
     };
@@ -122,31 +188,30 @@ export default {
         })
         .finally(() => {});
     },
+
     /**
      * Send Add Object Form.
      */
-    sendForm() {
-      this.loading = true;
+    sendAddForm() {
       axios
         .post("/object", {
-          name: this.name,
-          ip: this.ip,
-          username: this.username,
-          port: this.port,
-          keypass: this.keypass,
+          name: this.addForm.name,
+          ip: this.addForm.ip,
+          username: this.addForm.username,
+          port: this.addForm.port,
+          keypass: this.addForm.keypass,
         })
         .then((response) => {
-          console.log(response.data)
           if (response.data.success) {
             // Push to Objects.
             this.objects.push(response.data.object);
 
             // Reset values.
-            this.name = "";
-            this.ip = "";
-            this.username = "";
-            this.port = "";
-            this.keypass = "";
+            this.addForm.name = "";
+            this.addForm.ip = "";
+            this.addForm.username = "";
+            this.addForm.port = "";
+            this.addForm.keypass = "";
           } else {
             this.snackbar = true;
           }
@@ -156,9 +221,102 @@ export default {
         })
         .finally(() => {
           // Close modal.
-          this.dialog = false;
+          this.addForm.dialog = false;
         });
     },
+
+    /**
+     * Send Edit Object Form.
+     */
+    sendEditForm() {
+      axios
+        .put("/object/"+this.editForm.id, {
+          name: this.editForm.name,
+          ip: this.editForm.ip,
+          username: this.editForm.username,
+          port: this.editForm.port,
+          keypass: this.editForm.keypass,
+        })
+        .then((response) => {
+          if (response.data.data.success) {
+            // Replace in Objects.
+            let i = this.objects.map(item => item.id).indexOf(response.data.data.object.id);
+            Object.assign(this.objects[i], response.data.data.object)
+            // Reset values.
+            this.editForm.name = "";
+            this.editForm.ip = "";
+            this.editForm.username = "";
+            this.editForm.port = "";
+            this.editForm.keypass = "";
+          } else {
+            this.snackbar = true;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          console.log(this.objects);
+          // Close modal.
+          this.editForm.dialog = false;
+        });
+    },
+
+    /**
+     * Send Delete Object Form.
+     */
+    sendDeleteForm() {
+      axios
+        .delete("/object/"+this.deleteId)
+        .then((response) => {
+          if (response.data.data.success) {
+            // Remove from Objects.
+            let i = this.objects.map(item => item.id).indexOf(response.data.data.object.id);
+            this.objects.splice(i, 1)
+            // Reset values.
+            this.deleteId = "";
+            this.deleteName = "";
+          } else {
+            this.snackbar = true;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          // Close modal.
+          this.deleteDialog = false;
+        });
+    },
+
+    /**
+     * Open Edit object modal window.
+     */
+    setEditForm(item) {
+      // Find in this.objects current item.
+      let index = this.objects.indexOf(item);
+      let object = Object.assign({}, item);
+      // Set values.
+      this.editForm.id = object.id;
+      this.editForm.name = object.name;
+      this.editForm.ip = object.ip;
+      this.editForm.username = object.username;
+      this.editForm.port = object.port;
+      this.editForm.keypass = object.keypass;
+      // Show modal.
+      this.editForm.dialog = true;
+    },
+
+    setDeleteForm(item) {
+      // Find in this.objects current item.
+      let index = this.objects.indexOf(item);
+      let object = Object.assign({}, item);
+      // Set values.
+      this.deleteId = object.id;
+      this.deleteName = object.name;
+      // Show modal.
+      this.deleteDialog = true;
+    }
   },
 };
 </script>
