@@ -26,7 +26,7 @@ require __DIR__.'/auth.php';
 Auth::routes();
 
 Route::prefix('home')->group(function () {
-    Route::get('/', function () { return view('welcome'); });
+    Route::get('/', [HomeController::class, 'objects']);
     Route::get('/objects', [HomeController::class, 'objects']);
     Route::get('/commands', [HomeController::class, 'commands']);
     Route::get('/invites', [HomeController::class, 'invites']);
