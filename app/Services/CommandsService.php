@@ -31,9 +31,15 @@ class CommandsService
      * @param integer $userId
      * @return void
      */
-    public function runOnComputer(Command $command, int $userId)
+    public function runOnComputer(Command $command, int $userId, string $input): void
     {
-        //
+        // TODO: Log into database.
+
+        // Run command on remote computer.
+        shell_exec("
+            ssh -i ~/ $command->username@$command->ip -p$command->keypass \
+            '$command->content $input'"
+        );
     }
 
     /**

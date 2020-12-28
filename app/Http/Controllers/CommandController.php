@@ -53,13 +53,15 @@ class CommandController extends Controller
      */
     public function run(Request $request, Command $command)
     {
-        /*try {
-            return $this->commandsService->runOnComputer($command, $request->user()->id);
+        try {
+            return $this->commandsService->runOnComputer(
+                $command,
+                $request->user()->id,
+                $request->input ?? ""
+            );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
-        }*/
+            return new FailedActionResource($e);
+        }
     }
 
     /**
