@@ -312,7 +312,6 @@ export default {
           console.error(error);
         })
         .finally(() => {
-          console.log(this.commands);
           // Close modal.
           this.editForm.dialog = false;
         });

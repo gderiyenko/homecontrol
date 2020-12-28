@@ -256,7 +256,6 @@ export default {
           console.error(error);
         })
         .finally(() => {
-          console.log(this.objects);
           // Close modal.
           this.editForm.dialog = false;
         });
