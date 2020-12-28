@@ -42,6 +42,8 @@ Route::prefix('object')->group(function () {
 
 Route::get('commands', [CommandController::class, 'all']);
 Route::prefix('command')->group(function () {
+    Route::get('/{command}', [CommandController::class, 'run']);
+
     Route::post('/', [CommandController::class, 'store']);
     Route::put('/{command}', [CommandController::class, 'update']);
     Route::delete('/{command}', [CommandController::class, 'destroy']);

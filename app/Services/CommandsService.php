@@ -25,6 +25,18 @@ class CommandsService
     }
 
     /**
+     * Run command on related computer function
+     *
+     * @param Command $command
+     * @param integer $userId
+     * @return void
+     */
+    public function runOnComputer(Command $command, int $userId)
+    {
+        //
+    }
+
+    /**
      * Add command to database.
      *
      * @param  \Illuminate\Http\Request  $request

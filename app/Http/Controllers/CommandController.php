@@ -6,6 +6,7 @@ use App\Http\Resources\Command\Get\GetCommandsListResource;
 use App\Http\Resources\Command\Store\StoreCommandResource;
 use App\Http\Resources\Command\Edit\EditCommandResource;
 use App\Http\Resources\Command\Delete\DeleteCommandResource;
+use App\Http\Resources\FailedActionResource;
 use App\Models\Command;
 use App\Services\CommandsService;
 use Illuminate\Http\Request;
@@ -45,6 +46,23 @@ class CommandController extends Controller
     }
 
     /**
+     * Run $command on related smart-object computer.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function run(Request $request, Command $command)
+    {
+        /*try {
+            return $this->commandsService->runOnComputer($command, $request->user()->id);
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+            ];
+        }*/
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -57,9 +75,7 @@ class CommandController extends Controller
                 $this->commandsService->addOne($request)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 
@@ -77,9 +93,7 @@ class CommandController extends Controller
                 $this->commandsService->updateOne($request, $command)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 
@@ -96,9 +110,7 @@ class CommandController extends Controller
                 $this->commandsService->removeOne($command)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 }

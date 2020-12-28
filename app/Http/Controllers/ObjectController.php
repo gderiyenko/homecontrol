@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FailedActionResource;
 use App\Http\Resources\Object\Get\GetObjectsListResource;
 use App\Http\Resources\Object\Store\StoreObjectResource;
 use App\Http\Resources\Object\Edit\EditObjectResource;
@@ -57,9 +58,7 @@ class ObjectController extends Controller
                 $this->objectsService->addOne($request)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 
@@ -77,9 +76,7 @@ class ObjectController extends Controller
                 $this->objectsService->updateOne($request, $object)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 
@@ -96,9 +93,7 @@ class ObjectController extends Controller
                 $this->objectsService->removeOne($object)
             );
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-            ];
+            return new FailedActionResource($e);
         }
     }
 }
