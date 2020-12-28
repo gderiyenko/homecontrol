@@ -1,5 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
 ## Home controller app
 Provides web interface for smart home commands usage.
 
@@ -19,15 +17,9 @@ make init
 To see and customize parts of project's deploy check ./Makefile and ./docker directory.
 After init command running finished, you are welcome to `http://localhost/`.
 
-You may auth with any preinstalled (by Laravel seed) user with `password` as password.
+Main user to auth has `['someaddress@gmail.com' + 'password']` creds. But you may auth with any preinstalled (by Laravel seed) user with `password` as password.
 
 To check the database content you may use any MySQL-provided Database management system. Watch `.env` file to input connection settings rightly.
-
-
-
-## Based on Laravel 8
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling.
 
 
 ## License
