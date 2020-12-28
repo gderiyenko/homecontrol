@@ -6,27 +6,32 @@
       </div>
 
       <div class="card-body">
-        <v-card v-for="command in commands" :key="command.id">
-          <h4>{{command.name}}</h4>
-          <p>{{command.description}}</p>
-          <div v-if="command.input">
-            <v-text-field v-model="command.customInput" label="input" required></v-text-field>
-          </div>
-          <h6>{{command.object.name}}</h6>
-          <v-btn
-            class="ma-2"
-            :loading="loading"
-            :disabled="loading"
-            dark
-            @click="run(item)"
-          >
-            Run
-            <v-icon
-              small
+        <v-card v-for="command in commands" :key="command.id" class="m-3">
+          <v-card-title class="headline">{{command.name}}</v-card-title>
+          <v-card-subtitle>{{command.description}}</v-card-subtitle>
+          <v-card-text>
+            <div v-if="command.input">
+              <v-text-field v-model="command.customInput" label="input" required></v-text-field>
+            </div>
+            <h6>on {{command.object.name}} computer</h6>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="ma-2"
+              :loading="loading"
+              :disabled="loading"
+              dark
+              @click="run(item)"
             >
-              mdi-play
-            </v-icon>
-          </v-btn>
+              Run
+              <v-icon
+                small
+              >
+                mdi-play
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </div>
     </div>
