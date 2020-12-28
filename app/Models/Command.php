@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Command extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = "commands";
 
@@ -17,6 +18,12 @@ class Command extends Model
      * @var array
      */
     protected $fillable = [
+        'name',
+        'content',
+        'description',
+        'input',
+        'object_id',
+        'deleted_at',
     ];
 
     /* Relations */

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CommandsList;
+use App\Http\Resources\Command\Delete\DeleteCommandResource;
+use App\Http\Resources\Command\Edit\EditCommandResource;
+use App\Http\Resources\Command\Get\GetCommandsListResource;
 use App\Models\Command;
 use App\Models\SmartObjectsPermissions;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class CommandController extends Controller
      */
     public function all(Request $request)
     {
-        return new CommandsList(Command::whereIn('object_id', SmartObjectsPermissions::byUser($request->user()->id)->get()->pluck('object_id'))->get());
+        return new GetCommandsListResource(Command::whereIn('object_id', SmartObjectsPermissions::byUser($request->user()->id)->get()->pluck('object_id'))->get());
     }
 
     /**
@@ -28,18 +30,33 @@ class CommandController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Command  $command
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Command $command)
-    {
-        //
+        try {
+            $newCommand = Command::create([
+                'name' => $request->name,
+                'content' => $request->content,
+                'description' => $request->description,
+                'input' => $request->input,
+                'object_id' => $request->object_id,
+            ]);
+            return [
+                'success' => true,
+                'command' => [
+                    'id' => $newCommand->id,
+                    'name' => $newCommand->name,
+                    'content' => $newCommand->content,
+                    'description' => $newCommand->description,
+                    'input' => $newCommand->input,
+                    'object' => [
+                        'id' => $newCommand->object->id,
+                        'name' => $newCommand->object->name,
+                    ]
+                ]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+            ];
+        }
     }
 
     /**
@@ -51,7 +68,21 @@ class CommandController extends Controller
      */
     public function update(Request $request, Command $command)
     {
-        //
+        try {
+            $command->update([
+                'name' => $request->name,
+                'ip' => $request->ip,
+                'port' => $request->port,
+                'username' => $request->username,
+                'keypass' => $request->keypass,
+            ]);
+            $command->fresh();
+            return new EditCommandResource($command);
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+            ];
+        }
     }
 
     /**
@@ -62,6 +93,13 @@ class CommandController extends Controller
      */
     public function destroy(Command $command)
     {
-        //
+        try {
+            $command->delete();
+            return new DeleteCommandResource($command);
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+            ];
+        }
     }
 }

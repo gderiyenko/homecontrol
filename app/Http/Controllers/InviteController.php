@@ -30,17 +30,6 @@ class InviteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Invite  $invite
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Invite $invite)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

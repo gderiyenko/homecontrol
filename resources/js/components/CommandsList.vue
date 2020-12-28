@@ -291,7 +291,7 @@ export default {
           content: this.editForm.content,
           description: this.editForm.description,
           input: this.editForm.input,
-          object: this.editForm.objectId,
+          object_id: this.editForm.objectId,
         })
         .then((response) => {
           if (response.data.data.success) {

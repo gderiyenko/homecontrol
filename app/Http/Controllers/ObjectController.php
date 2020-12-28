@@ -60,7 +60,6 @@ class ObjectController extends Controller
                 'success' => false,
             ];
         }
-        
     }
 
     /**
