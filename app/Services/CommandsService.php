@@ -36,9 +36,9 @@ class CommandsService
         // TODO: Log into database.
 
         // Run command on remote computer.
-        shell_exec("
-            ssh -i ~/ $command->username@$command->ip -p$command->keypass \
-            '$command->content $input'"
+        shell_exec(
+            "ssh -i ~/ $command->username@$command->ip -p$command->keypass \
+            '$command->content $input '"
         );
     }
 

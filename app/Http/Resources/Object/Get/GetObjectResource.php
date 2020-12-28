@@ -14,9 +14,15 @@ class GetObjectResource extends JsonResource
      */
     public function toArray($request)
     {
+        $connection = $this->object->username .
+            '@' . $this->object->ip .
+            ':' . $this->object->port .
+            ' -p' . $this->object->keypass;
+
         $details = $this->owner
-            ? $this->object->username.'@'.$this->object->ip.':'.$this->object->port.' -p'.$this->object->keypass
-            : 'Provided by '.$this->user->name;
+            ? $connection
+            : 'Provided by ' . $this->user->name;
+
         return [
             'id' => $this->object->id,
             'name' => $this->object->name,

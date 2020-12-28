@@ -17,10 +17,10 @@ class ObjectSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i<=800;++$i) {
+        for ($i = 1; $i <= 800; ++$i) {
             $object = SmartObject::create([
                 'name' => Str::random(10),
-                'ip' => rand(0, 255).'.'.rand(0, 255).'.'.rand(0, 255).'.'.rand(0, 255),
+                'ip' => rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255),
                 'port' => rand(1024, 32767),
                 'username' => Str::random(10),
                 'keypass' => Str::random(10),

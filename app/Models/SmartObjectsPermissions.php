@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SmartObjectsPermissions extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $table = "users_objects";
 
@@ -67,5 +68,4 @@ class SmartObjectsPermissions extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

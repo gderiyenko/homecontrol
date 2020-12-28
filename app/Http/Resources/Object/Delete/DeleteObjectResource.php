@@ -14,12 +14,17 @@ class DeleteObjectResource extends JsonResource
      */
     public function toArray($request)
     {
+        $connection = $this->username .
+            '@' . $this->ip .
+            ':' . $this->port .
+            ' -p' . $this->keypass;
+
         return [
             'success' => true,
             'object' => [
                 'id' => $this->id,
                 'name' => $this->name,
-                'details' => $this->username.'@'.$this->ip.':'.$this->port.' -p'.$this->keypass,
+                'details' => $connection,
                 'ip' => $this->ip,
                 'port' => $this->port,
                 'username' => $this->username,

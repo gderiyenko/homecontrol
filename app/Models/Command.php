@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Command extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $table = "commands";
 
@@ -34,5 +35,5 @@ class Command extends Model
     public function object()
     {
         return $this->belongsTo(SmartObject::class, 'object_id');
-    } 
+    }
 }

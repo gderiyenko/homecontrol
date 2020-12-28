@@ -19,7 +19,7 @@ class StoreObjectResource extends JsonResource
             'object' => [
                 'id' => $this->id,
                 'name' => $this->name,
-                'details' => $this->username.'@'.$this->ip.':'.$this->port.' -p'.$this->keypass,
+                'details' => $this->username . '@' . $this->ip . ':' . $this->port . ' -p' . $this->keypass,
                 'ip' => $this->ip,
                 'port' => $this->port,
                 'username' => $this->username,
