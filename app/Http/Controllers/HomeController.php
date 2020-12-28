@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * HomeController class
+ * Manage authed user's pages.
+ */
 class HomeController extends Controller
 {
     /**

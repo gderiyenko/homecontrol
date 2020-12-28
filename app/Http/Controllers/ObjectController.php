@@ -11,6 +11,10 @@ use App\Models\SmartObject;
 use App\Services\ObjectsService;
 use Illuminate\Http\Request;
 
+/**
+ * ObjectController class
+ * Manage user's smart-objects.
+ */
 class ObjectController extends Controller
 {
     /**

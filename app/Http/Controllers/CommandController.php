@@ -11,6 +11,10 @@ use App\Models\Command;
 use App\Services\CommandsService;
 use Illuminate\Http\Request;
 
+/**
+ * CommandController class
+ * Manage commands.
+ */
 class CommandController extends Controller
 {
     /**
