@@ -29,7 +29,7 @@ Route::prefix('home')->group(function () {
     Route::get('/', function () { return view('welcome'); });
     Route::get('/objects', [HomeController::class, 'objects']);
     Route::get('/commands', [HomeController::class, 'commands']);
-    Route::get('/teams', [HomeController::class, 'teams']);
+    Route::get('/invites', [HomeController::class, 'invites']);
 });
 
 Route::get('objects', [ObjectController::class, 'all']);

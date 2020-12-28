@@ -86,12 +86,12 @@
     </v-dialog>
 
     <!-- Edit object modal window -->
-    <v-dialog v-model="deleteDialog" max-width="600">
+    <v-dialog v-model="deleteForm.dialog" max-width="600">
       <v-card>
         <v-card-title class="headline"> Delete object </v-card-title>
 
         <v-card-subtitle>
-          Are you sure to delete the {{ deleteName }} object?
+          Are you sure to delete the `{{ deleteForm.name }}` object?
         </v-card-subtitle>
 
         <v-card-actions>
@@ -158,10 +158,11 @@ export default {
       },
       
       // Delete form
-      deleteDialog: false,
-      deleteName: "",
-      deleteId: "",
-
+      deleteForm: {
+        dialog: false,
+        name: "",
+        id: "",
+      },
 
       // Failed notification.
       snackbar: false,
@@ -205,7 +206,6 @@ export default {
           if (response.data.success) {
             // Push to Objects.
             this.objects.push(response.data.object);
-
             // Reset values.
             this.addForm.name = "";
             this.addForm.ip = "";
@@ -267,15 +267,15 @@ export default {
      */
     sendDeleteForm() {
       axios
-        .delete("/object/"+this.deleteId)
+        .delete("/object/"+this.deleteForm.id)
         .then((response) => {
           if (response.data.data.success) {
             // Remove from Objects.
             let i = this.objects.map(item => item.id).indexOf(response.data.data.object.id);
             this.objects.splice(i, 1)
             // Reset values.
-            this.deleteId = "";
-            this.deleteName = "";
+            this.deleteForm.id = "";
+            this.deleteForm.name = "";
           } else {
             this.snackbar = true;
           }
@@ -285,7 +285,7 @@ export default {
         })
         .finally(() => {
           // Close modal.
-          this.deleteDialog = false;
+          this.deleteForm.dialog = false;
         });
     },
 
@@ -312,10 +312,10 @@ export default {
       let index = this.objects.indexOf(item);
       let object = Object.assign({}, item);
       // Set values.
-      this.deleteId = object.id;
-      this.deleteName = object.name;
+      this.deleteForm.id = object.id;
+      this.deleteForm.name = object.name;
       // Show modal.
-      this.deleteDialog = true;
+      this.deleteForm.dialog = true;
     }
   },
 };

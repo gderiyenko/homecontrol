@@ -12,6 +12,11 @@ class SmartObjectsPermissions extends Model
 
     protected $table = "users_objects";
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'id',
         'user_id',

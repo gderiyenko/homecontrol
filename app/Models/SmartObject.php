@@ -12,6 +12,11 @@ class SmartObject extends Model
 
     protected $table = "objects";
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'id',
         'name',

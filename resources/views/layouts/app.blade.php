@@ -45,7 +45,7 @@
                             <a class="nav-link" href="/home/commands">Commands</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/home/teams">Teams</a>
+                            <a class="nav-link" href="/home/invites">Invites</a>
                         </li>
                     @endguest
                     </ul>

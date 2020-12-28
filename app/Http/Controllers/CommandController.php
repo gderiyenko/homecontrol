@@ -17,7 +17,7 @@ class CommandController extends Controller
      */
     public function all(Request $request)
     {
-        return new CommandsList(SmartObjectsPermissions::byUser($request->user()->id));
+        return new CommandsList(Command::whereIn('object_id', SmartObjectsPermissions::byUser($request->user()->id)->get()->pluck('object_id'))->get());
     }
 
     /**

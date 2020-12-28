@@ -37,12 +37,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show teams dashboard.
+     * Show invites dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function teams()
+    public function invites()
     {
-        return view('teams');
+        return view('invites');
     }
 }

@@ -15,9 +15,12 @@ class Command extends JsonResource
     public function toArray($request)
     {
         return [
-            'object_id' => $this->object->id,
-            'object_name' => $this->object->name,
-            'commands' => $this->object->commands,
+            'id' => $this->id,
+            'name' => $this->name,
+            'content' => $this->content,
+            'description' => $this->description,
+            'input' => $this->input,
+            'object' => $this->object,
         ];
     }
 }

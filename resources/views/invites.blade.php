@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <span>{{ __('Teams') }}</span>
+                    <span>{{ __('Invites') }}</span>
                     <div class="float-right">
                         <add-object></add-object>
                     </div>

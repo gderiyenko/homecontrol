@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Command;
 use App\Models\SmartObject;
-use App\Models\Team;
+use App\Models\Invite;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::model('object', SmartObject::class);
         Route::model('command', Command::class);
-        Route::model('team', Team::class);
+        Route::model('invite', Invite::class);
 
         $this->routes(function () {
             Route::prefix('api')

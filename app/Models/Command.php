@@ -11,8 +11,21 @@ class Command extends Model
 
     protected $table = "commands";
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
     ];
 
     /* Relations */
+
+    /**
+     * Get the object that owns command.
+     */
+    public function object()
+    {
+        return $this->belongsTo(SmartObject::class, 'object_id');
+    } 
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
+use App\Models\Invite;
 use Illuminate\Http\Request;
 
 class InviteController extends Controller
 {
     /**
-     * Show all user's teams.
+     * Show all user's invites.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -32,10 +32,10 @@ class InviteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Invite  $invite
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show(Invite $invite)
     {
         //
     }
@@ -44,10 +44,10 @@ class InviteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Invite  $invite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, Invite $invite)
     {
         //
     }
@@ -55,10 +55,10 @@ class InviteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Invite  $invite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(Invite $invite)
     {
         //
     }
