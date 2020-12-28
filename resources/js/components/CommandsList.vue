@@ -38,14 +38,14 @@
         <v-card-title class="headline"> Create command </v-card-title>
 
         <v-card-subtitle>
-          Input here your bash command and object device to run it on.
+          Input here your bash command settings and object device to run it on.
         </v-card-subtitle>
 
         <v-card-text>
           <v-text-field v-model="addForm.name" label="Name" required></v-text-field>
           <v-text-field v-model="addForm.content" label="Content" required></v-text-field>
           <v-text-field v-model="addForm.description" label="Description" required></v-text-field>
-          <v-radio-group v-model="editForm.input">
+          <v-radio-group v-model="addForm.input">
             <template v-slot:label>
               <div>Does the command needs string input?</strong></div>
             </template>
@@ -58,7 +58,11 @@
               :value="0"
             ></v-radio>
           </v-radio-group>
-          <v-text-field v-model="addForm.object" label="Object" required></v-text-field>
+          <v-select
+            v-model="addForm.objectId"
+            :items="objects"
+            label="Computer"
+        ></v-select>
         </v-card-text>
 
         <v-card-actions>
@@ -83,7 +87,7 @@
           <v-text-field v-model="editForm.name" label="Name" required></v-text-field>
           <v-text-field v-model="editForm.content" label="Content" required></v-text-field>
           <v-text-field v-model="editForm.description" label="Description" required ></v-text-field>
-          <v-radio-group v-model="editForm.input">
+          <v-radio-group v-model="editForm.input" required>
             <template v-slot:label>
               <div>Does the command needs string input?</strong></div>
             </template>
@@ -97,9 +101,10 @@
             ></v-radio>
           </v-radio-group>
           <v-select
-            v-model="editForm.object"
+            v-model="editForm.objectId"
             :items="objects"
             label="Computer"
+            required
         ></v-select>
         </v-card-text>
 
@@ -172,8 +177,8 @@ export default {
         name: "",
         content: "",
         description: "",
-        input: false,
-        object: {},
+        input: 0,
+        objectId: {},
       },
 
       // Edit form.
@@ -183,8 +188,8 @@ export default {
         name: "",
         content: "",
         description: "",
-        input: false,
-        object: {},
+        input: 0,
+        objectId: {},
       },
       
       // Delete form
@@ -251,7 +256,7 @@ export default {
           content: this.addForm.content,
           description: this.addForm.description,
           input: this.addForm.input,
-          object_id: this.addForm.object.id,
+          object_id: this.addForm.objectId,
         })
         .then((response) => {
           if (response.data.success) {
@@ -261,8 +266,8 @@ export default {
             this.addForm.name = "";
             this.addForm.content = "";
             this.addForm.description = "";
-            this.addForm.input = false;
-            this.addForm.object = {};
+            this.addForm.input = 0;
+            this.addForm.objectId = {};
           } else {
             this.snackbar = true;
           }
@@ -286,7 +291,7 @@ export default {
           content: this.editForm.content,
           description: this.editForm.description,
           input: this.editForm.input,
-          object: this.editForm.object,
+          object: this.editForm.objectId,
         })
         .then((response) => {
           if (response.data.data.success) {
@@ -297,8 +302,8 @@ export default {
             this.editForm.name = "";
             this.editForm.content = "";
             this.editForm.description = "";
-            this.editForm.input = false;
-            this.editForm.object = {};
+            this.editForm.input = 0;
+            this.editForm.objectId = {};
           } else {
             this.snackbar = true;
           }
@@ -353,7 +358,7 @@ export default {
       this.editForm.content = command.content;
       this.editForm.description = command.description;
       this.editForm.input = command.input;
-      this.editForm.object = command.object;
+      this.editForm.objectId = command.object.id;
       // Show modal.
       this.editForm.dialog = true;
     },

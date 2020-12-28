@@ -27,9 +27,7 @@ class SmartObject extends Model
         'deleted_at',
     ];
 
-    protected $with = [
-        'commands',
-    ];
+    protected $with = [];
 
     /* Relations */
 
