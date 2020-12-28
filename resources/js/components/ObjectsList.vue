@@ -203,9 +203,9 @@ export default {
           keypass: this.addForm.keypass,
         })
         .then((response) => {
-          if (response.data.success) {
+          if (response.data.data.success) {
             // Push to Objects.
-            this.objects.push(response.data.object);
+            this.objects.push(response.data.data.object);
             // Reset values.
             this.addForm.name = "";
             this.addForm.ip = "";

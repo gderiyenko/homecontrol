@@ -2,15 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Object\Delete\DeleteObjectResource;
-use App\Http\Resources\Object\Edit\EditObjectResource;
 use App\Http\Resources\Object\Get\GetObjectsListResource;
+use App\Http\Resources\Object\Store\StoreObjectResource;
+use App\Http\Resources\Object\Edit\EditObjectResource;
+use App\Http\Resources\Object\Delete\DeleteObjectResource;
 use App\Models\SmartObject;
-use App\Models\SmartObjectsPermissions;
+use App\Services\ObjectsService;
 use Illuminate\Http\Request;
 
 class ObjectController extends Controller
 {
+    /**
+     * Services and business logic implementations.
+     */
+    protected $objectsService;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ObjectsService $objectsService)
+    {
+        $this->objectsService = $objectsService;
+    }
+
     /**
      * Show all user's smart objects.
      *
@@ -19,7 +35,13 @@ class ObjectController extends Controller
      */
     public function all(Request $request)
     {
-        return new GetObjectsListResource(SmartObjectsPermissions::with('object', 'user')->byUser($request->user()->id)->get());
+        try {
+            return new GetObjectsListResource(
+                $this->objectsService->getObjectsByUser($request->user()->id)
+            );
+        } catch (\Exception $e) {
+            return new GetObjectsListResource([]);
+        }
     }
 
     /**
@@ -31,30 +53,9 @@ class ObjectController extends Controller
     public function store(Request $request)
     {
         try {
-            $newObject = SmartObject::create([
-                'name' => $request->name,
-                'ip' => $request->ip,
-                'port' => $request->port,
-                'username' => $request->username,
-                'keypass' => $request->keypass,
-            ]);
-            SmartObjectsPermissions::create([
-                'user_id' => $request->user()->id,
-                'object_id' => $newObject->id,
-                'owner' => true,
-            ]);
-            return [
-                'success' => true,
-                'object' => [
-                    'id' => $newObject->id,
-                    'name' => $newObject->name,
-                    'details' => $newObject->username.'@'.$newObject->ip.':'.$newObject->port.' -p'.$newObject->keypass,
-                    'ip' => $newObject->ip,
-                    'port' => $newObject->port,
-                    'username' => $newObject->username,
-                    'keypass' => $newObject->keypass,
-                ]
-            ];
+            return new StoreObjectResource(
+                $this->objectsService->addOne($request)
+            );
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -72,15 +73,9 @@ class ObjectController extends Controller
     public function update(Request $request, SmartObject $object)
     {
         try {
-            $object->update([
-                'name' => $request->name,
-                'ip' => $request->ip,
-                'port' => $request->port,
-                'username' => $request->username,
-                'keypass' => $request->keypass,
-            ]);
-            $object->fresh();
-            return new EditObjectResource($object);
+            return new EditObjectResource(
+                $this->objectsService->updateOne($request, $object)
+            );
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -97,9 +92,9 @@ class ObjectController extends Controller
     public function destroy(SmartObject $object)
     {
         try {
-            SmartObjectsPermissions::byObject($object->id)->get()->each->delete();
-            $object->delete();
-            return new DeleteObjectResource($object);
+            return new DeleteObjectResource(
+                $this->objectsService->removeOne($object)
+            );
         } catch (\Exception $e) {
             return [
                 'success' => false,
