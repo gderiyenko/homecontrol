@@ -12,7 +12,5 @@ init:
 	docker exec -it app bash -c 'php artisan key:generate'
 	docker exec -it app bash -c "php artisan migrate:fresh --seed"
 	docker exec -it app bash -c "php artisan breeze:install"
-	docker exec -it app bash -c "npm install && npm run dev"
 	docker exec -it app bash -c "git reset --hard"
-
-
+	docker exec -it app bash -c "npm install && npm run dev"
