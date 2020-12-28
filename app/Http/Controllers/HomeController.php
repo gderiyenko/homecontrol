@@ -45,4 +45,14 @@ class HomeController extends Controller
     {
         return view('invites');
     }
+
+    /**
+     * Show runner dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function runner()
+    {
+        return view('runner');
+    }
 }

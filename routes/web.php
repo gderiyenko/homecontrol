@@ -30,6 +30,7 @@ Route::prefix('home')->group(function () {
     Route::get('/objects', [HomeController::class, 'objects']);
     Route::get('/commands', [HomeController::class, 'commands']);
     Route::get('/invites', [HomeController::class, 'invites']);
+    Route::get('/runner', [HomeController::class, 'runner']);
 });
 
 Route::get('objects', [ObjectController::class, 'all']);

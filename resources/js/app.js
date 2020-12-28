@@ -28,8 +28,8 @@ Vue.component(
 );
 
 Vue.component(
-    "add-command",
-    require("./components/AddCommand.vue").default
+    "runner",
+    require("./components/Runner.vue").default
 );
 
 Vue.component(

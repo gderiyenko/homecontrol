@@ -39,6 +39,9 @@
                     @guest
                     @else
                         <li class="nav-item">
+                            <a class="nav-link" href="/home/runner">Runner</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/home/objects">Objects</a>
                         </li>
                         <li class="nav-item">
