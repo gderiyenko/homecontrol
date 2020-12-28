@@ -11,7 +11,7 @@
           <v-card-subtitle>{{command.description}}</v-card-subtitle>
           <v-card-text>
             <div v-if="command.input">
-              <v-text-field v-model="command.customInput" label="input" required></v-text-field>
+              <v-text-field v-model="command.inputValue" label="input" required></v-text-field>
             </div>
             <h6>on {{command.object.name}} computer</h6>
           </v-card-text>
@@ -22,7 +22,7 @@
               :loading="loading"
               :disabled="loading"
               dark
-              @click="run(item)"
+              @click="run(command)"
             >
               Run
               <v-icon
@@ -90,7 +90,9 @@ export default {
      */
     run(command) {
       axios
-        .get("/run/" + command.id)
+        .post("/command/"+command.id+"/run", {
+          input: command.inputValue ?? ""
+        })
         .then((response) => {
           
         })

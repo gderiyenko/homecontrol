@@ -7,13 +7,10 @@
             <div class="card">
                 <div class="card-header">
                     <span>{{ __('Invites') }}</span>
-                    <div class="float-right">
-                        <add-object></add-object>
-                    </div>
                 </div>
 
                 <div class="card-body">
-                    <objects-list></objects-list>
+                    *in progress*
                 </div>
             </div>
         </div>
