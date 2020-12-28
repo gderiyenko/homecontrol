@@ -17,6 +17,10 @@ make init
 ```
 
 To see and customize parts of project's deploy check ./Makefile and ./docker directory.
+After init command running finished, you are welcome to `http://localhost/`.
+You may auth with any preinstalled (by Laravel seed) user with `password` as password.
+To check the database you can use any MySQL-provided Database management system. Watch `.env` file to input connection settings rightly.
+
 
 
 ## Based on Laravel 8
