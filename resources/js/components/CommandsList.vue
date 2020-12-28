@@ -259,9 +259,9 @@ export default {
           object_id: this.addForm.objectId,
         })
         .then((response) => {
-          if (response.data.success) {
+          if (response.data.data.success) {
             // Push to Commands.
-            this.commands.push(response.data.command);
+            this.commands.push(response.data.data.command);
             // Reset values.
             this.addForm.name = "";
             this.addForm.content = "";
